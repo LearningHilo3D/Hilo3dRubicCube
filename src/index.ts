@@ -29,9 +29,28 @@ const orbitControls = new OrbitControls(stage, {
 
 const mesh = new Hilo3d.Mesh({
   geometry: new Hilo3d.BoxGeometry(),
-  material: new Hilo3d.BasicMaterial({
-    diffuse: new Hilo3d.Color(0.6, 0.9, 0.3),
-    lightType: 'NONE'
+  material: new Hilo3d.PBRMaterial({
+    baseColor: new Hilo3d.Color(0.6, 0.9, 0.3),
   })
 });
 stage.addChild(mesh);
+
+stage.addChild(new Hilo3d.DirectionalLight({
+  color: new Hilo3d.Color(1, 1, 1),
+  direction: new Hilo3d.Vector3(0, 1, 0),
+  amount: 2,
+}));
+stage.addChild(new Hilo3d.AmbientLight({
+  color: new Hilo3d.Color(1, 1, 1),
+  amount: 0.2,
+}));
+
+Hilo3d.Tween.to(mesh, {
+  rotationX: 180,
+  rotationY:180
+}, {
+  duration: 1500,
+  ease: Hilo3d.Tween.Ease.Quad.EaseInOut,
+  loop: true,
+  reverse: true,
+});
