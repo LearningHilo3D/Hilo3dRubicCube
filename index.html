@@ -1,10 +1,465 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Webpack App</title>
-    </head>
-    <body>
-        <div id='gameContainer'></div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Hilo3d Shadow example</title>
+    <link rel="stylesheet" type="text/css" href="./example.css">
+</head>
+<body>
+    <div id="container"></div>
+    <script src="./js/Hilo3d.js"></script>
+    <script src="./js/stats.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <script>
+        var camera = new Hilo3d.PerspectiveCamera({
+            aspect: innerWidth / innerHeight,
+            far: 2,
+            near: 0.1,
+            z: 1
+        });
+        
+       
+        var stage = new Hilo3d.Stage({
+            container: document.getElementById('container'),
+            camera: camera,
+            width: innerWidth,
+            height: innerHeight,
+            rotationX: 30
+        });
+
+        
+        stage.enableDOMEvent([Hilo3d.browser.POINTER_START, Hilo3d.browser.POINTER_MOVE, Hilo3d.browser.POINTER_END, 'mouseover', 'click']);
+        
+        stage.on('click', (e)=>{
+            var eventTarget = e.eventTarget;
+            if(eventTarget.isMesh){
+                eventTarget.rotationX += 60;
+                
+                console.log('mesh', e.hitPoint.elements);
+            }
+            else{
+                // console.log('stage', e.hitPoint.elements);
+            }
+        });
+        function getMousePos(event) {
+            var e = event || window.event;
+            return {'x':e.screenX,'y':screenY}
+        }
+
+        var ticker = new Hilo3d.Ticker(60);
+        ticker.addTick(stage);
+        ticker.addTick(Hilo3d.Tween);
+        ticker.addTick(Hilo3d.Animation);
+        //没有改scale，缩小一下~
+
+        var box222 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: -1,
+            z: -1,
+            onUpdate: function() {
+
+               
+               
+            }
+        }).addTo(stage);
+        var box220 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: -1,
+            z: 0,
+            onUpdate: function() {
+
+             
+            }
+        }).addTo(stage);
+        var box221 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: -1,
+            z: 1,
+            onUpdate: function() {
+
+               
+            }
+        }).addTo(stage);
+        var box202 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: 0,
+            z: -1,
+            onUpdate: function() {
+
+               
+            }
+        }).addTo(stage);
+        var box200 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: 0,
+            z: 0,
+            onUpdate: function() {
+
+               
+            
+            }
+        }).addTo(stage);
+
+        var box201 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: 0,
+            z: 1,
+            onUpdate: function() {
+
+           
+            }
+        }).addTo(stage);
+
+        
+
+        var box212 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: 1,
+            z: -1,
+            onUpdate: function() {
+
+               
+              
+            }
+        }).addTo(stage);
+
+        var box210 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: 1,
+            z: 0,
+            onUpdate: function() {
+
+              
+            }
+        }).addTo(stage);
+
+        var box211 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: -1,
+            y: 1,
+            z: 1,
+            onUpdate: function() {
+
+               
+              
+            }
+        }).addTo(stage);
+
+        var box022 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: -1,
+            z: -1,
+            onUpdate: function() {
+
+             
+            }
+        }).addTo(stage);
+
+        var box020 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: -1,
+            z: 0,
+            onUpdate: function() {
+
+               
+            }
+        }).addTo(stage);
+
+        var box021 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: -1,
+            z: 1,
+            onUpdate: function() {
+
+               
+             
+            }
+        }).addTo(stage);
+
+        var box002 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: 0,
+            z: -1,
+            onUpdate: function() {
+
+             
+            }
+        }).addTo(stage);
+
+        var box000 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: 0,
+            z: 0,
+            onUpdate: function() {
+
+            
+            }
+        }).addTo(stage);
+
+        var box001 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: 0,
+            z: 1,
+            onUpdate: function() {
+
+              
+            }
+        }).addTo(stage);
+
+        var box012 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: 1,
+            z: -1,
+            onUpdate: function() {
+
+             
+            }
+        }).addTo(stage);
+
+        var box010 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: 1,
+            z: 0,
+            onUpdate: function() {
+
+            }
+        }).addTo(stage);
+
+        var box011 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0,
+            y: 1,
+            z: 1,
+            onUpdate: function() {
+
+            
+            }
+        }).addTo(stage);
+
+        var box122 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: -1,
+            z: -1,
+            onUpdate: function() {
+
+             
+            }
+        }).addTo(stage);
+
+        var box120 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: -1,
+            z: 0,
+            onUpdate: function() {
+
+               
+             
+            }
+        }).addTo(stage);
+        
+        var box121 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: -1,
+            z: 1,
+            onUpdate: function() {
+
+               
+          
+            }
+        }).addTo(stage);
+
+        
+        var box102 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: 0,
+            z: -1,
+            onUpdate: function() {
+
+            }
+        }).addTo(stage);
+
+        
+        var box100 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: 0,
+            z: 0,
+            onUpdate: function() {
+
+           
+            }
+        }).addTo(stage);
+        var box101 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: 0,
+            z: 1,
+            onUpdate: function() {
+
+             
+            }
+        }).addTo(stage);
+
+        
+        var box112 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: 1,
+            z: -1,
+            onUpdate: function() {
+
+         
+            }
+        }).addTo(stage);
+
+        
+        var box110 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: 1,
+            z: 0,
+            onUpdate: function() {
+
+          
+            }
+        }).addTo(stage);
+        var box111 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 1,
+            y: 1,
+            z: 1,
+            onUpdate: function() {
+
+              
+            }
+        }).addTo(stage);
+
+
+        // box222.setScale(0.2);
+        // box110.setScale(0.2);
+
+      
+
+        var directionalLight = new Hilo3d.AmbientLight({
+            color:new Hilo3d.Color(1, 0, 0),
+            direction:new Hilo3d.Vector3(-1, -1, 0),
+          
+            onUpdate: function() {
+                //this.direction.rotateY(new Hilo3d.Vector3(0, 0, 0), Math.PI/180);
+                this.isDirty = true;
+            }
+        })
+        stage.addChild(directionalLight);
+
+
+        var stats = new Stats(ticker, stage.renderer.renderInfo);
+        var orbitControls = new OrbitControls(stage, {
+            isLockMove:true,
+            isLockZ:true
+        });
+        ticker.start();
+    </script>
+</body>
 </html>

@@ -1,1 +1,219 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>Webpack App</title><script defer="defer" src="main.js"></script></head><body><div id="gameContainer"></div></body></html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Hilo3d Shadow example</title>
+    <link rel="stylesheet" type="text/css" href="./example.css">
+</head>
+<body>
+    <div id="gameContainer"></div>
+    <script src="./js/Hilo3d.js"></script>
+    <script src="./js/stats.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <script>
+        var camera = new Hilo3d.PerspectiveCamera({
+            aspect: innerWidth / innerHeight,
+            far: 2,
+            near: 0.1,
+            z: 1
+        });
+        
+       
+        var stage = new Hilo3d.Stage({
+            container: document.getElementById('container'),
+            camera: camera,
+            width: innerWidth,
+            height: innerHeight,
+            rotationX: 30
+        });
+
+        
+        stage.enableDOMEvent([Hilo3d.browser.POINTER_START, Hilo3d.browser.POINTER_MOVE, Hilo3d.browser.POINTER_END, 'mouseover', 'click']);
+        stage.on('mouseover', (e)=>{
+            var eventTarget = e.eventTarget;
+            if(eventTarget.isMesh){
+                eventTarget.material.transparency = 0.5;
+                console.log('mesh', e.hitPoint.elements);
+            }
+            else{
+              
+            }
+        });
+        stage.on('click', (e)=>{
+            var eventTarget = e.eventTarget;
+            if(eventTarget.isMesh){
+                eventTarget.rotationX += 60;
+                
+                console.log('mesh', e.hitPoint.elements);
+            }
+            else{
+                // console.log('stage', e.hitPoint.elements);
+            }
+        });
+        function getMousePos(event) {
+            var e = event || window.event;
+            return {'x':e.screenX,'y':screenY}
+        }
+
+        var ticker = new Hilo3d.Ticker(60);
+        ticker.addTick(stage);
+        ticker.addTick(Hilo3d.Tween);
+        ticker.addTick(Hilo3d.Animation);
+
+        // var glTFLoader = new Hilo3d.GLTFLoader();
+        // glTFLoader.load({
+        //     src: './models/Tmall/Tmall.gltf'
+        // }).then(function (model) {
+        //     window.model = model;
+        //     model.node.setScale(0.0005);
+        //     model.node.y = 0.205;
+        //     stage.addChild(model.node);
+        // });
+
+        var box2 = new Hilo3d.Mesh({
+            
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColorMap: new Hilo3d.LazyTexture({
+                    src: '//img.alicdn.com/tfs/TB1aNxtQpXXXXX1XVXXXXXXXXXX-1024-1024.jpg'
+                }),
+                x: 0.6,
+                y: .2,
+                z: 0.2,
+            })
+        }).addTo(stage);
+
+        var box1 = new Hilo3d.Mesh({
+            geometry: new Hilo3d.BoxGeometry(),
+            material: new Hilo3d.PBRMaterial({
+                baseColor: new Hilo3d.Color(255, 255, 0),
+            }),
+            x: 0.3,
+            y: .2,
+            z: 0.2,
+            onUpdate: function() {
+
+               
+                // this.rotationX += 1.5;
+                // this.rotationY += 1.5;
+            }
+        }).addTo(stage);
+
+        box1.setScale(0.1);
+        box2.setScale(0.1);
+
+        // var spotLight = new Hilo3d.SpotLight({
+        //     y: 1,
+        //     x:0,
+        //     cutoff: 8,
+        //     outerCutoff: 9,
+        //     range: 3,
+        //     color:new Hilo3d.Color(1, 1, 1),
+        //     direction:new Hilo3d.Vector3(0.1, -1, 0),
+        //     amount: 5,
+        //     shadow: {
+        //         debug: false,
+        //         cameraInfo:{
+        //             // fov:180,
+        //             // aspect:1,
+        //             // near:0.1,
+        //             // far:2
+        //         },
+        //         minBias: 0.0001
+        //     },
+        //     onUpdate: function() {
+        //         this.direction.rotateY(new Hilo3d.Vector3(0, 0, 0), Math.PI/180);
+        //         this.isDirty = true;
+        //     }
+        // });
+        // stage.addChild(spotLight);
+
+        var directionalLight = new Hilo3d.DirectionalLight({
+            color:new Hilo3d.Color(1, 0, 0),
+            direction:new Hilo3d.Vector3(-1, -1, 0),
+          
+            onUpdate: function() {
+                //this.direction.rotateY(new Hilo3d.Vector3(0, 0, 0), Math.PI/180);
+                this.isDirty = true;
+            }
+        })
+        stage.addChild(directionalLight);
+
+        // new Hilo3d.AmbientLight({
+        //     color:new Hilo3d.Color(1, 1, 1),
+        //     amount: .1
+        // }).addTo(stage);
+
+        var stats = new Stats(ticker, stage.renderer.renderInfo);
+        var orbitControls = new OrbitControls(stage, {
+            isLockMove:true,
+            isLockZ:true
+        });
+        ticker.start();
+    </script>
+</body>
+</html>
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Hilo3d Mouse Event Demo</title>
+    <link rel="stylesheet" type="text/css" href="./example.css">
+</head>
+<body>
+    <div id="container"></div>
+    <script src="../build/Hilo3d.js"></script>
+    <script src="./js/stats.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+    <script src="./js/init.js"></script>
+    <script>
+        function rand(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        var geometry = new Hilo3d.PlaneGeometry();
+        var container = new Hilo3d.Node();
+        stage.addChild(container);
+
+        for (var i = 0; i < 100; i++) {
+            var rect = new Hilo3d.Mesh({
+                geometry: geometry,
+                material: new Hilo3d.BasicMaterial({
+                    lightType:'NONE',
+                    diffuse: new Hilo3d.Color(Math.random(), Math.random(), Math.random()),
+                    transparent:true,
+                    side:Hilo3d.constants.FRONT_AND_BACK
+                }),
+                x: rand(-0.5, 0.5),
+                y: rand(-0.5, 0.5),
+                z: rand(-1, 1),
+                useHandCursor:true
+            });
+            rect.setScale(rand(0.2, 0.2));
+            container.addChild(rect);
+        }
+
+        stage.enableDOMEvent([Hilo3d.browser.POINTER_START, Hilo3d.browser.POINTER_MOVE, Hilo3d.browser.POINTER_END, 'mouseover', 'mouseout']);
+        stage.on('mouseover', (e)=>{
+            var eventTarget = e.eventTarget;
+            if(eventTarget.isMesh){
+                eventTarget.material.transparency = 0.5;
+                console.log('mesh', e.hitPoint.elements);
+            }
+            else{
+                // console.log('stage', e.hitPoint.elements);
+            }
+        });
+
+        stage.on('mouseout', (e)=>{
+            var eventTarget = e.eventTarget;
+            if(eventTarget.isMesh){
+                eventTarget.material.transparency = 1;
+            }
+        });
+    </script>
+</body>
+</html> -->
