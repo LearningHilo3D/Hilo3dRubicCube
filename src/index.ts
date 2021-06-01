@@ -1,4 +1,4 @@
-import * as Hilo3d from 'hilo3d';
+import hilo3d, * as Hilo3d from 'hilo3d';
 const OrbitControls = require('hilo3d/examples/js/OrbitControls');
 
 const camera = new Hilo3d.PerspectiveCamera({
@@ -34,6 +34,7 @@ stage.addChild(new Hilo3d.AmbientLight({
   amount: 1,
 }));
 
+
 function createCubeMesh(colorCfg:{
   [key: string]: Hilo3d.Color
 } = {}, defaultColor:Hilo3d.Color = new Hilo3d.Color(.1, .1, .1)):Hilo3d.Mesh {
@@ -58,17 +59,21 @@ function createCubeMesh(colorCfg:{
   });
 
   mesh.setScale(0.95);
-
+  //
+  // mesh.onUpdate = () => {
+  //   mesh.rotationX += 2;
+  //   mesh.rotationY += 2;
+  // };
   return mesh;
 }
 
 
 const colorDict = {
   left: new Hilo3d.Color().fromHEX('ff595e'),
-  right: new Hilo3d.Color().fromHEX('ffca3a'),
-  top: new Hilo3d.Color().fromHEX('8ac926'),
-  bottom: new Hilo3d.Color().fromHEX('1982c4'),
-  front: new Hilo3d.Color().fromHEX('6a4c93'),
+  right: new Hilo3d.Color().fromHEX('f0134d'),
+  top: new Hilo3d.Color().fromHEX('3e64ff'),
+  bottom: new Hilo3d.Color().fromHEX('o55a5b'),
+  front: new Hilo3d.Color().fromHEX('ffd369'),
   back: new Hilo3d.Color().fromHEX('edddd4'),
 }
 
@@ -220,6 +225,7 @@ box100.setPosition(1, 0 ,0);
 var box101 = createCubeMesh({
   right: colorDict.right,
   front: colorDict.front,
+  
 }).addTo(cubeContainer);
 box101.setPosition(1, 0, 1);
 
@@ -243,3 +249,31 @@ const box111 = createCubeMesh({
   front: colorDict.front,
 }).addTo(cubeContainer);
 box111.setPosition(1, 1, 1);
+
+
+Hilo3d.Tween
+.to(box101, {
+  // x:1,
+  // y:2,
+  // z:3,
+  rotationX:360,
+}, {
+  duration:1000,
+  delay:500,
+  ease:Hilo3d.Tween.Ease.Quad.EaseIn
+});
+
+//  easing类型：
+//  In ==> easeIn，加速，先慢后快
+//  Out ==> easeOut，减速，先快后慢
+//  InOut ==> easeInOut，前半段加速，后半段减速
+// easing函数：
+//  Linear ==> 线性匀速运动效果
+//  Quadratic ==> 二次方的缓动
+//  Cubic ==> 三次方的缓动
+//  Sinusoidal ==> 正弦曲线的缓动
+//  Exponential ==> 指数曲线的缓动
+//  Circular ==> 圆形曲线的缓动
+//  Bounce ==> 指数衰减的反弹缓动
+
+
