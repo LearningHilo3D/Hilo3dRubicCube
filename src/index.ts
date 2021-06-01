@@ -142,7 +142,7 @@ for(let x = -1;x <= 1;x ++) {
 //  Circular ==> 圆形曲线的缓动
 //  Bounce ==> 指数衰减的反弹缓动
 
-function getBoxes(type: 'x'|'y'|'z', pos: 0|-1|1) :Hilo3d.Node[]{
+function getBoxes(type: 'x'|'y'|'z', pos: number) :Hilo3d.Node[]{
   switch(type){
     case 'x':
       return [
@@ -202,40 +202,33 @@ async function rotateBoxes(boxes: Hilo3d.Node[], rotation: any):Promise<void> {
   });
 }
 
-
 async function runAnimation() {
-  await rotateBoxes(getBoxes('x', -1), {
-   rotationX: 90,
-  });
+  for(let i = -1;i <= 1; i ++) {
+    await rotateBoxes(getBoxes('x', i), {
+     rotationX: 90,
+    });
 
-  await rotateBoxes(getBoxes('x', -1), {
-   rotationX: 0,
-  });
+    await rotateBoxes(getBoxes('x', i), {
+     rotationX: 0,
+    });
 
-  await rotateBoxes(getBoxes('x', 0), {
-   rotationX: 90,
-  });
+    await rotateBoxes(getBoxes('y', i), {
+     rotationY: 90,
+    });
 
-  await rotateBoxes(getBoxes('x', 0), {
-   rotationX: 0,
-  });
+    await rotateBoxes(getBoxes('y', i), {
+     rotationY: 0,
+    });
 
-  await rotateBoxes(getBoxes('z', -1), {
-   rotationZ: 90,
-  });
+    await rotateBoxes(getBoxes('z', i), {
+     rotationZ: 90,
+    });
 
-  await rotateBoxes(getBoxes('z', -1), {
-   rotationZ: 0,
-  });
-
-  await rotateBoxes(getBoxes('y', -1), {
-   rotationY: 90,
-  });
-
-  await rotateBoxes(getBoxes('y', -1), {
-   rotationY: 0,
-  });
-
+    await rotateBoxes(getBoxes('z', i), {
+     rotationZ: 0,
+    });
+  }
+  
   runAnimation();
 }
 
