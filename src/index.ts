@@ -99,6 +99,7 @@ cubeContainer.on(Hilo3d.browser.POINTER_START, (e: any) => {
 const cubeDict:{
   [key: string]: Hilo3d.Node,
 } = {};
+
 for(let x = -1;x <= 1;x ++) {
   for(let y = -1;y <= 1;y ++) {
     for(let z = -1;z <= 1; z++) {
@@ -121,7 +122,7 @@ for(let x = -1;x <= 1;x ++) {
         colorInfo.front = colorDict.front;
       }
 
-      const cube = cubeDict[`${x},${y},${z}`] = createCubeMesh(colorInfo).addTo(cubeContainer);
+      var cube = cubeDict[`${x},${y},${z}`] = createCubeMesh(colorInfo).addTo(cubeContainer);
       cube.setPosition(x, y, z);
       cube.setPivot(-x, -y, -z);
     }
@@ -142,6 +143,9 @@ for(let x = -1;x <= 1;x ++) {
 //  Circular ==> 圆形曲线的缓动
 //  Bounce ==> 指数衰减的反弹缓动
 
+
+
+//everytime to get position
 function getBoxes(type: 'x'|'y'|'z', pos: number) :Hilo3d.Node[]{
   switch(type){
     case 'x':
@@ -189,6 +193,55 @@ function getBoxes(type: 'x'|'y'|'z', pos: number) :Hilo3d.Node[]{
   }
 }
 
+function resetBoxes(type: '-1'|'0'|'1'){
+  switch(type){
+    case '-1':
+      [
+
+       
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`],
+      ]
+     case '0':
+       [
+        cubeDict[`-1,0,-1`],
+        cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`],
+
+        cubeDict[`0,0,-1`],
+        cubeDict[`0,0,0`],
+        cubeDict[`0,0,1`],
+
+        cubeDict[`1,0,-1`],
+        cubeDict[`1,0,0`],
+        cubeDict[`1,0,1`],
+      ]
+     case '-1':
+       [
+        cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,-1`],
+
+        cubeDict[`0,-1,-1`],
+        cubeDict[`0,0,-1`],
+        cubeDict[`0,1,-1`],
+
+        cubeDict[`1,-1,-1`],
+        cubeDict[`1,0,-1`],
+        cubeDict[`1,1,-1`],
+      ]
+  }
+}
+
 async function rotateBoxes(boxes: Hilo3d.Node[], rotation: any):Promise<void> {
   await new Promise<void>((resolve) => {
     Hilo3d.Tween.to(boxes, rotation, {
@@ -202,34 +255,49 @@ async function rotateBoxes(boxes: Hilo3d.Node[], rotation: any):Promise<void> {
   });
 }
 
-async function runAnimation() {
-  for(let i = -1;i <= 1; i ++) {
-    await rotateBoxes(getBoxes('x', i), {
-     rotationX: 90,
-    });
+//只有x转为0的时候下次拿到的cube才是正确的
+async function runAnimation(){
+  await rotateBoxes(getBoxes('x',-1),{
+    rotationX:90,
+  });
 
-    await rotateBoxes(getBoxes('x', i), {
-     rotationX: 0,
-    });
+  resetBoxes("-1");
+   
+  await rotateBoxes(getBoxes('y', -1), {
+    rotationY: 90,
+  });
+  resetBoxes("-1");
 
-    await rotateBoxes(getBoxes('y', i), {
-     rotationY: 90,
-    });
 
-    await rotateBoxes(getBoxes('y', i), {
-     rotationY: 0,
-    });
-
-    await rotateBoxes(getBoxes('z', i), {
-     rotationZ: 90,
-    });
-
-    await rotateBoxes(getBoxes('z', i), {
-     rotationZ: 0,
-    });
-  }
-  
-  runAnimation();
 }
+// async function runAnimation() {
+//   for(let i = -1;i <= 1; i ++) {
+//     await rotateBoxes(getBoxes('x', i), {//get all cubes that  Xaxis is i
+//      rotationX: 90,
+//     });
+
+//     await rotateBoxes(getBoxes('x', i), {
+//      rotationX: 0,
+//     });//rotationX have to return 0
+
+//     await rotateBoxes(getBoxes('y', i), {
+//      rotationY: 90,
+//     });
+
+//     await rotateBoxes(getBoxes('y', i), {
+//      rotationY: 0,
+//     });
+
+//     await rotateBoxes(getBoxes('z', i), {
+//      rotationZ: 90,
+//     });
+
+//     await rotateBoxes(getBoxes('z', i), {
+//      rotationZ: 0,
+//     });
+//   }
+  
+//   runAnimation();
+// }
 
 runAnimation();
