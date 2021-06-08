@@ -195,24 +195,24 @@ function getBoxes(type: 'x'|'y'|'z', pos: number) :Hilo3d.Node[]{
 
 function resetBoxes(type: '-1'|'0'|'1'){
   switch(type){
-    case '-1':
-      [
+    case '-1': 
+    {    
+      cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+      cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+      cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
 
-       
-        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
-        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
-        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+      cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+      cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+      cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
 
-        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
-        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
-        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
-
-        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
-        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
-        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`],
-      ]
+      cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+      cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+      cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+    }
+      break;
+      
      case '0':
-       [
+      {
         cubeDict[`-1,0,-1`],
         cubeDict[`-1,0,0`],
         cubeDict[`-1,0,1`],
@@ -223,10 +223,12 @@ function resetBoxes(type: '-1'|'0'|'1'){
 
         cubeDict[`1,0,-1`],
         cubeDict[`1,0,0`],
-        cubeDict[`1,0,1`],
-      ]
+        cubeDict[`1,0,1`]
+      
+    }
+    break;
      case '-1':
-       [
+       {
         cubeDict[`-1,-1,-1`],
         cubeDict[`-1,0,-1`],
         cubeDict[`-1,1,-1`],
@@ -237,8 +239,17 @@ function resetBoxes(type: '-1'|'0'|'1'){
 
         cubeDict[`1,-1,-1`],
         cubeDict[`1,0,-1`],
-        cubeDict[`1,1,-1`],
-      ]
+        cubeDict[`1,1,-1`]
+      }
+      break;
+
+     default:
+       {
+        console.log('wrong number');
+
+       }
+       break;
+
   }
 }
 
