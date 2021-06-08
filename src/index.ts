@@ -193,65 +193,376 @@ function getBoxes(type: 'x'|'y'|'z', pos: number) :Hilo3d.Node[]{
   }
 }
 
-function resetBoxes(type: '-1'|'0'|'1'){
-  switch(type){
-    case '-1': 
-    {    
-      cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
-      cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
-      cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
-
-      cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
-      cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
-      cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
-
-      cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
-      cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
-      cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
-    }
-      break;
-      
-     case '0':
-      {
-        cubeDict[`-1,0,-1`],
-        cubeDict[`-1,0,0`],
-        cubeDict[`-1,0,1`],
-
-        cubeDict[`0,0,-1`],
-        cubeDict[`0,0,0`],
-        cubeDict[`0,0,1`],
-
-        cubeDict[`1,0,-1`],
-        cubeDict[`1,0,0`],
-        cubeDict[`1,0,1`]
-      
-    }
-    break;
-     case '-1':
-       {
-        cubeDict[`-1,-1,-1`],
-        cubeDict[`-1,0,-1`],
-        cubeDict[`-1,1,-1`],
-
-        cubeDict[`0,-1,-1`],
-        cubeDict[`0,0,-1`],
-        cubeDict[`0,1,-1`],
-
-        cubeDict[`1,-1,-1`],
-        cubeDict[`1,0,-1`],
-        cubeDict[`1,1,-1`]
+//==============dir为direction,判断顺逆时针====================
+function resetBoxes(type: 'x'|'y'|'z', pos: '-1'|'0'|'1' , dir: '-1'|'1'){
+if(dir==='-1'){
+  if(type==='x'){
+    switch(pos){
+      // =======type:x ，pos：-1，dir: -1部分=======
+      case '-1': 
+      {    
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+  
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+  
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+      }
+        break;
+       // =======type:x，pos：0，dir: -1部分=======
+       case '0':
+        {
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,0,0`],
+          cubeDict[`-1,0,1`],
+  
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,0,0`],
+          cubeDict[`0,0,1`],
+  
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,0,0`],
+          cubeDict[`1,0,1`]
+        
       }
       break;
+      // =======type:x，pos：1，dir: -1部分=======
+       case '1':
+         {
+          cubeDict[`-1,-1,-1`],
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,1,-1`],
+  
+          cubeDict[`0,-1,-1`],
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,1,-1`],
+  
+          cubeDict[`1,-1,-1`],
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,1,-1`]
+        }
+        break;
+  
+       default:
+         {
+          console.log('wrong number');
+  
+         }
+         break;
+     }
 
-     default:
-       {
-        console.log('wrong number');
-
-       }
-       break;
-
+   }else if(type==='y'){
+    switch(pos){
+      // =======type:y，pos：-1，dir: -1部分=======
+      case '-1': 
+      {    
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+  
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+  
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+      }
+        break;
+        // =======type:y，pos：0，dir: -1部分=======
+       case '0':
+        {
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,0,0`],
+          cubeDict[`-1,0,1`],
+  
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,0,0`],
+          cubeDict[`0,0,1`],
+  
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,0,0`],
+          cubeDict[`1,0,1`]
+        
+      }
+      break;
+      // =======type:y，pos：1，dir: -1部分=======
+       case '1':
+         {
+          cubeDict[`-1,-1,-1`],
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,1,-1`],
+  
+          cubeDict[`0,-1,-1`],
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,1,-1`],
+  
+          cubeDict[`1,-1,-1`],
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,1,-1`]
+        }
+        break;
+  
+       default:
+         {
+          console.log('wrong number');
+  
+         }
+         break;
+     }
+  }else if(type==='z'){
+    switch(pos){
+      // =======type:z，pos：-1，dir: -1部分=======
+      case '-1': 
+      {    
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+  
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+  
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+      }
+        break;
+        // =======type:y，pos：0，dir: -1部分=======
+       case '0':
+        {
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,0,0`],
+          cubeDict[`-1,0,1`],
+  
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,0,0`],
+          cubeDict[`0,0,1`],
+  
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,0,0`],
+          cubeDict[`1,0,1`]
+        
+      }
+      break;
+      // =======type:y，pos：1，dir: -1部分=======
+       case '1':
+         {
+          cubeDict[`-1,-1,-1`],
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,1,-1`],
+  
+          cubeDict[`0,-1,-1`],
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,1,-1`],
+  
+          cubeDict[`1,-1,-1`],
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,1,-1`]
+        }
+        break;
+  
+       default:
+         {
+          console.log('wrong number');
+  
+         }
+         break;
+     }
+  }else{
+    console.log('wrong character');
   }
-}
+
+//   =============逆时针部分============
+
+}else if(dir==='1'){
+  if(type==='x'){
+    switch(pos){
+      // =======type:x，pos：-1，dir: 1部分=======
+      case '-1': 
+      {    
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+  
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+  
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+      }
+        break;
+        // =======type:x，pos：0，dir: 1部分=======
+       case '0':
+        {
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,0,0`],
+          cubeDict[`-1,0,1`],
+  
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,0,0`],
+          cubeDict[`0,0,1`],
+  
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,0,0`],
+          cubeDict[`1,0,1`]
+        
+      }
+      break;
+      // =======type:x，pos：1，dir: 1部分=======
+       case '1':
+         {
+          cubeDict[`-1,-1,-1`],
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,1,-1`],
+  
+          cubeDict[`0,-1,-1`],
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,1,-1`],
+  
+          cubeDict[`1,-1,-1`],
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,1,-1`]
+        }
+        break;
+  
+       default:
+         {
+          console.log('wrong number');
+  
+         }
+         break;
+     }
+   }else if(type==='y'){
+    switch(pos){
+      // =======type:y，pos：1，dir: 1部分=======
+      case '-1': 
+      {    
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+  
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+  
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+      }
+        break;
+      // =======type:y，pos：0，dir: 1部分=======
+       case '0':
+        {
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,0,0`],
+          cubeDict[`-1,0,1`],
+  
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,0,0`],
+          cubeDict[`0,0,1`],
+  
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,0,0`],
+          cubeDict[`1,0,1`]
+        
+      }
+      break;
+      // =======type:y，pos：1，dir: 1部分=======
+       case '1':
+         {
+          cubeDict[`-1,-1,-1`],
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,1,-1`],
+  
+          cubeDict[`0,-1,-1`],
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,1,-1`],
+  
+          cubeDict[`1,-1,-1`],
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,1,-1`]
+        }
+        break;
+  
+       default:
+         {
+          console.log('wrong number');
+  
+         }
+         break;
+     }
+  }else if(type==='z'){
+    switch(pos){
+      // =======type:z，pos：-1，dir: 1部分=======
+      case '-1': 
+      {    
+        cubeDict[`-1,-1,-1`]=cubeDict[`-1,-1,1`],
+        cubeDict[`-1,-1,0`]=cubeDict[`-1,0,1`],
+        cubeDict[`-1,-1,1`]=cubeDict[`-1,1,1`],
+  
+        cubeDict[`-1,0,-1`]= cubeDict[`-1,-1,0`],
+        cubeDict[`-1,0,0`]= cubeDict[`-1,0,0`],
+        cubeDict[`-1,0,1`]= cubeDict[`-1,1,0`],
+  
+        cubeDict[`-1,1,-1`]=cubeDict[`-1,-1,-1`],
+        cubeDict[`-1,1,0`]=cubeDict[`-1,0,-1`],
+        cubeDict[`-1,1,1`]= cubeDict[`-1,1,-1`]
+      }
+        break;
+        // =======type:z，pos：0，dir: 1部分=======
+       case '0':
+        {
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,0,0`],
+          cubeDict[`-1,0,1`],
+  
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,0,0`],
+          cubeDict[`0,0,1`],
+  
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,0,0`],
+          cubeDict[`1,0,1`]
+        
+      }
+      break;
+      // =======type:z，pos：1，dir: 1部分=======
+       case '1':
+         {
+          cubeDict[`-1,-1,-1`],
+          cubeDict[`-1,0,-1`],
+          cubeDict[`-1,1,-1`],
+  
+          cubeDict[`0,-1,-1`],
+          cubeDict[`0,0,-1`],
+          cubeDict[`0,1,-1`],
+  
+          cubeDict[`1,-1,-1`],
+          cubeDict[`1,0,-1`],
+          cubeDict[`1,1,-1`]
+        }
+        break;
+  
+       default:
+         {
+          console.log('wrong number');
+  
+         }
+         break;
+     }
+  }else{
+    console.log('wrong character');
+  }
+
+}}
 
 async function rotateBoxes(boxes: Hilo3d.Node[], rotation: any):Promise<void> {
   await new Promise<void>((resolve) => {
@@ -271,13 +582,16 @@ async function runAnimation(){
   await rotateBoxes(getBoxes('x',-1),{
     rotationX:90,
   });
-
-  resetBoxes("-1");
-   
+  resetBoxes('x','-1','-1');
+  
+  await rotateBoxes(getBoxes('x', 0), {
+    rotationX: 90,
+  });
+  resetBoxes('x','-1','-1');
   await rotateBoxes(getBoxes('y', -1), {
     rotationY: 90,
   });
-  resetBoxes("-1");
+
 
 
 }
